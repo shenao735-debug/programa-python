@@ -1,0 +1,69 @@
+# =============================================================================
+# Universidad Nacional Abierta y a Distancia (UNAD)
+# Curso: Fundamentos de Programación - Código: 213022
+# Fase 5 - Evaluación Final POA
+# 
+# Problema 4: Videoteca Digital (Popular y Reciente)
+# =============================================================================
+
+def contar_titulos_populares_y_recientes(matriz_videoteca, umbral_calificacion, anio_limite):
+    """
+    Función encargada de evaluar la matriz de la videoteca y contar cuántos
+    títulos cumplen simultáneamente con los criterios establecidos.
+    
+    Lógica de negocio:
+    - Calificación >= umbral_calificacion Y Año de Lanzamiento >= anio_limite
+    """
+    conteo_cumplen = 0
+    
+    # Recorremos cada una de las filas (títulos) de la matriz
+    for titulo_info in matriz_videoteca:
+        # Extracción de variables según el formato: [Título, Año, Calificación, Género]
+        anio_lanzamiento = titulo_info[1]
+        calificacion = titulo_info[2]
+        
+        # Validación estricta de ambos criterios en conjunto (Y lógico)
+        if calificacion >= umbral_calificacion and anio_lanzamiento >= anio_limite:
+            conteo_cumplen += 1
+            
+    return conteo_cumplen
+
+
+def main():
+    print("=========================================================")
+    print("        SISTEMA DE AUDITORÍA - VIDEOTECA DIGITAL         ")
+    print("=========================================================\n")
+    
+    # REQ-01: Definición de la matriz con 7 títulos (datos iniciales inicializados)
+    # Formato interno: [Nombre (str), Año (int), Calificación (float), Género (str)]
+    videoteca = [
+        ["Inception", 2010, 8.8, "Ciencia Ficción"],
+        ["Interstellar", 2014, 8.6, "Ciencia Ficción"],
+        ["Spider-Man: No Way Home", 2021, 8.2, "Acción"],
+        ["Parasite", 2019, 8.5, "Drama"],
+        ["The Dark Knight", 2008, 9.0, "Acción"],
+        ["Everything Everywhere All at Once", 2022, 7.9, "Aventura"],
+        ["Dune: Part Two", 2024, 8.7, "Ciencia Ficción"]
+    ]
+    
+    # REQ-02: Definición de umbrales y criterios de búsqueda solicitados por consola
+    try:
+        print("Defina los parámetros para filtrar el material popular y reciente:")
+        umbral_cal = float(input("Ingrese el umbral mínimo de calificación (1.0 a 10.0): "))
+        anio_lim = int(input("Ingrese el año límite de lanzamiento (ej. 2015): "))
+        print("-" * 57)
+        
+        # REQ-03: Llamado al módulo/función para calcular el total
+        total_filtrado = contar_titulos_populares_y_recientes(videoteca, umbral_cal, anio_lim)
+        
+        # REQ-04: Despliegue de la salida final formateada
+        print("\n================== INFORME DE RESULTADOS ================")
+        print(f"Criterios aplicados -> Calificación >= {umbral_cal} | Año >= {anio_lim}")
+        print(f"Total de títulos que cumplen las condiciones: {total_filtrado}")
+        print("=========================================================")
+        
+    except ValueError:
+        print("\n[ERROR]: Por favor, ingrese valores numéricos válidos para el filtrado.")
+
+if __name__ == "__main__":
+    main()
